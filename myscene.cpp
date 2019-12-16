@@ -107,8 +107,10 @@ Node *initScene1()
     return(root); */
     QString path(SRCDIR);
     QString shaderPath(path+"/");
+    Texture *t;
 
-
+    Geometry* g = new TriangleMesh(path + QString("/objects/Pufferfish_Mob.obj"));
+    Drawable* model1 = new Drawable(g);
 
     Node *root=new Node();
     int v_Slot = PhysicEngineManager::createNewPhysicEngineSlot(PhysicEngineName::BulletPhysicsLibrary);
@@ -118,6 +120,10 @@ Node *initScene1()
     v_Plane->setStaticGeometry(true);
     Shader* s = ShaderManager::getShader(path + QString("/shaders/Filter.vert"), path + QString("/shaders/Filter.frag"));
     v_Plane->setShader(s);
+    t = v_Plane->getProperty<Texture>();
+    t->loadPicture(path + QString("/modelstextures/l.bmp"));
+    t = model1->getProperty<Texture>();
+    t->loadPicture(path + QString("/modelstextures/ogrehead_diffuse.png"));
     Transformation* v_TransformationPlane = new Transformation();
     Node* transformationPlaneNode = new Node(v_TransformationPlane);
     v_TransformationPlane->rotate(-90.f, 1.f, 0.f, 0.f);
