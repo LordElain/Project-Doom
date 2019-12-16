@@ -1,4 +1,4 @@
-include(../../Common.pri)
+include(../../../Common.pri)
 
 TARGET = SimpleShader
 SOURCES += \
