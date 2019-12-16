@@ -1,0 +1,7 @@
+<RCC>
+    <qresource prefix="/">
+        <file>shaders/common.vert.inc</file>
+        <file>shaders/Filter.frag</file>
+        <file>shaders/Filter.vert</file>
+    </qresource>
+</RCC>
