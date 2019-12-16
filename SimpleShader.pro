@@ -2,10 +2,12 @@ include(../../../Common.pri)
 
 TARGET = SimpleShader
 SOURCES += \
-    myscene.cpp
+    myscene.cpp \
+    spieler.cpp
 
 RESOURCES += \
     MyShaders.qrc
 
-HEADERS +=
+HEADERS += \
+    spieler.h
 

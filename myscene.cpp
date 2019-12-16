@@ -14,9 +14,12 @@
 #include "soundsource.h"
 #include "shadermanager.h"
 #include "efx-presets.h"
+#include "spieler.h"
+
+
+
 
 Node *initScene1();
-Node *initScene2();
 
 ScreenRenderer* sortedRenderer;
 ScreenRenderer* preOrderRenderer;
@@ -66,7 +69,7 @@ void SceneManager::initScenes()
 
 Node *initScene1()
 {
-    QString path(SRCDIR); //aus .pro-File!
+  /*  QString path(SRCDIR); //aus .pro-File!
     //Objekte anlegen
     Drawable *p = new Drawable(new SimplePlane(3.0));
     Drawable *p1 = new Drawable(new SimplePlane(3.0, 3.0, 100.0));
@@ -101,5 +104,31 @@ Node *initScene1()
 
 
 
-    return(root);
+    return(root); */
+    QString path(SRCDIR);
+    QString shaderPath(path+"/");
+
+
+
+    Node *root=new Node();
+    int v_Slot = PhysicEngineManager::createNewPhysicEngineSlot(PhysicEngineName::BulletPhysicsLibrary);
+    PhysicEngine* v_PhysicEngine = PhysicEngineManager::getPhysicEngineBySlot(v_Slot);
+
+    Drawable* v_Plane = new Drawable(new SimplePlane(100.f));
+    v_Plane->setStaticGeometry(true);
+    Shader* s = ShaderManager::getShader(path + QString("/shaders/Filter.vert"), path + QString("/shaders/Filter.frag"));
+    v_Plane->setShader(s);
+    Transformation* v_TransformationPlane = new Transformation();
+    Node* transformationPlaneNode = new Node(v_TransformationPlane);
+    v_TransformationPlane->rotate(-90.f, 1.f, 0.f, 0.f);
+    PhysicObject* v_PlanePhys = v_PhysicEngine->createNewPhysicObject(v_Plane);
+    PhysicObjectConstructionInfo* v_Constrinf = new PhysicObjectConstructionInfo();
+    v_Constrinf->setCollisionHull(CollisionHull::BoxAABB); // Automatische generierung einer Box aus den Vertexpunkten
+    v_PlanePhys->setConstructionInfo(v_Constrinf);
+    v_PlanePhys->registerPhysicObject();
+
+    root->addChild(transformationPlaneNode);
+    transformationPlaneNode->addChild(new Node(v_Plane));
+
+    return root;
 }
