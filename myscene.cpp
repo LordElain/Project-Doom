@@ -69,72 +69,53 @@ void SceneManager::initScenes()
 
 Node *initScene1()
 {
-  /*  QString path(SRCDIR); //aus .pro-File!
-    //Objekte anlegen
-    Drawable *p = new Drawable(new SimplePlane(3.0));
-    Drawable *p1 = new Drawable(new SimplePlane(3.0, 3.0, 100.0));
-    Node *root=new Node();
-    Texture *t;
-
-    QString shaderPath(path+"/");
-
-    Shader* s = ShaderManager::getShader(path + QString("/shaders/Filter.vert"), path + QString("/shaders/Filter.frag"));
-    p->setShader(s);
-    ShaderTimed* ltimedShader =
-      ShaderManager::getShader<ShaderTimed>(path + QString("/shaders/Filter.vert"), path + QString("/shaders/Filter.frag"));
-    ltimedShader->setMsecsPerIteration(1000);
-    p1->setShader(ltimedShader);
-    // Nodes anlegen
-    Node* pNode = new Node(p);
-    Node* p1Node = new Node(p1);
-
-
-    //Texturen laden
-    t = p->getProperty<Texture>();
-    t->loadPicture(path + QString("/modelstextures/l.bmp"));
-    //t->makeStripes(256, 10);
-    t = p1->getProperty<Texture>();
-    t->makeStripes(256, 10);
-
-
-
-    root->addChild(pNode);
-    root->addChild(p1Node);
-
-
-
-
-    return(root); */
     QString path(SRCDIR);
     QString shaderPath(path+"/");
     Texture *t;
 
+    //Transformationen
+    Transformation* v_TransformationPlane = new Transformation();
+    v_TransformationPlane->rotate(-90.f, 1.f, 0.f, 0.f);
+    v_TransformationPlane->translate(0.f, 0.f, -5.f);
+    Transformation* f_Puffer = new Transformation();
+    f_Puffer->translate(0.f,0.f,5.f);
+    //f_Puffer->scale(10.f,10.f,10.f);
+
+    //Drawable
+    Drawable* v_Plane = new Drawable(new SimplePlane(10.f));
+    v_Plane->setStaticGeometry(true);
     Geometry* g = new TriangleMesh(path + QString("/objects/Pufferfish_Mob.obj"));
     Drawable* model1 = new Drawable(g);
 
-    Node *root=new Node();
+    //Nodes
+    Node* transformationFish = new Node(f_Puffer);
+    Node* transformationPlaneNode = new Node(v_TransformationPlane);
+    Node* root=new Node();
+
+    //Manager Sachen
     int v_Slot = PhysicEngineManager::createNewPhysicEngineSlot(PhysicEngineName::BulletPhysicsLibrary);
     PhysicEngine* v_PhysicEngine = PhysicEngineManager::getPhysicEngineBySlot(v_Slot);
-
-    Drawable* v_Plane = new Drawable(new SimplePlane(100.f));
-    v_Plane->setStaticGeometry(true);
     Shader* s = ShaderManager::getShader(path + QString("/shaders/Filter.vert"), path + QString("/shaders/Filter.frag"));
     v_Plane->setShader(s);
+
+    //Texturen
     t = v_Plane->getProperty<Texture>();
     t->loadPicture(path + QString("/modelstextures/l.bmp"));
     t = model1->getProperty<Texture>();
     t->loadPicture(path + QString("/modelstextures/ogrehead_diffuse.png"));
-    Transformation* v_TransformationPlane = new Transformation();
-    Node* transformationPlaneNode = new Node(v_TransformationPlane);
-    v_TransformationPlane->rotate(-90.f, 1.f, 0.f, 0.f);
+
+    //Physics
     PhysicObject* v_PlanePhys = v_PhysicEngine->createNewPhysicObject(v_Plane);
     PhysicObjectConstructionInfo* v_Constrinf = new PhysicObjectConstructionInfo();
     v_Constrinf->setCollisionHull(CollisionHull::BoxAABB); // Automatische generierung einer Box aus den Vertexpunkten
     v_PlanePhys->setConstructionInfo(v_Constrinf);
     v_PlanePhys->registerPhysicObject();
 
+    //Baum
     root->addChild(transformationPlaneNode);
     transformationPlaneNode->addChild(new Node(v_Plane));
+    root ->addChild(transformationFish);
+    transformationFish->addChild(new Node(model1));
 
     return root;
 }
