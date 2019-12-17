@@ -1,6 +1,6 @@
 # Blender v2.81 (sub 16) OBJ File: 'Seaweed.blend'
 # www.blender.org
-mtllib Environment_Seaweed_1.mtl.mtl
+mtllib Environment_Seaweed.mtl
 o Cube
 v 0.037631 0.347836 -0.168216
 v 0.037631 0.000000 -0.168216
