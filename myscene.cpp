@@ -1,4 +1,6 @@
 #include <QString>
+#include <time.h>
+
 #include "scenemanager.h"
 #include "screenrenderer.h"
 #include "simpleplane.h"
@@ -15,6 +17,8 @@
 #include "shadermanager.h"
 #include "efx-presets.h"
 #include "spieler.h"
+#include "mapgen.h"
+#include "vector"
 
 
 
@@ -69,53 +73,95 @@ void SceneManager::initScenes()
 
 Node *initScene1()
 {
+    //Deklaration
+    srand (time(NULL));
     QString path(SRCDIR);
     QString shaderPath(path+"/");
     Texture *t;
+    MapGen Gen;
+    std::vector<std::vector<int>>Koord{3,std::vector<int>(20)};
+
+
+/*
+    int tx = rand() % 5 + 1;
+    int tz = rand() % 5 + 1;
+    int t_tx = 1;
+    int t_tz = 1;
+    const int ty = 0;
+    bool status = false;
+*/
 
     //Transformationen
-    Transformation* v_TransformationPlane = new Transformation();
-    v_TransformationPlane->rotate(-90.f, 1.f, 0.f, 0.f);
-    v_TransformationPlane->translate(0.f, 0.f, -5.f);
-    Transformation* f_Puffer = new Transformation();
-    f_Puffer->translate(0.f,0.f,5.f);
-    //f_Puffer->scale(10.f,10.f,10.f);
+
 
     //Drawable
-    Drawable* v_Plane = new Drawable(new SimplePlane(10.f));
-    v_Plane->setStaticGeometry(true);
-    Geometry* g = new TriangleMesh(path + QString("/objects/Pufferfish_Mob.obj"));
-    Drawable* model1 = new Drawable(g);
+
+    Geometry* e_Fish = new TriangleMesh(path + QString("/objects/Pufferfish_Mob.obj"));
+    Geometry* e_Coral = new TriangleMesh(path + QString("/objects/Environment_Coral_1.obj"));
+    Geometry* e_Seaw = new TriangleMesh(path + QString("/objects/Environment_Seaweed.obj"));
+
+
+    Drawable* model1 = new Drawable(e_Fish);
+    Drawable* model2 = new Drawable(e_Coral);
+    Drawable* model3 = new Drawable(e_Seaw);
+
+
+
 
     //Nodes
-    Node* transformationFish = new Node(f_Puffer);
-    Node* transformationPlaneNode = new Node(v_TransformationPlane);
+    Node* transformationFish = new Node(Gen.f_TPuffer);
+    Node* transformationPlaneNode = new Node(Gen.v_TransformationPlane);
+    Node* transformationEnvironment = new Node (Gen.e_TCoral);
     Node* root=new Node();
 
     //Manager Sachen
-    int v_Slot = PhysicEngineManager::createNewPhysicEngineSlot(PhysicEngineName::BulletPhysicsLibrary);
-    PhysicEngine* v_PhysicEngine = PhysicEngineManager::getPhysicEngineBySlot(v_Slot);
-    Shader* s = ShaderManager::getShader(path + QString("/shaders/Filter.vert"), path + QString("/shaders/Filter.frag"));
-    v_Plane->setShader(s);
+
 
     //Texturen
-    t = v_Plane->getProperty<Texture>();
+    t = Gen.v_Plane->getProperty<Texture>();
     t->loadPicture(path + QString("/modelstextures/l.bmp"));
     t = model1->getProperty<Texture>();
     t->loadPicture(path + QString("/modelstextures/ogrehead_diffuse.png"));
 
     //Physics
-    PhysicObject* v_PlanePhys = v_PhysicEngine->createNewPhysicObject(v_Plane);
-    PhysicObjectConstructionInfo* v_Constrinf = new PhysicObjectConstructionInfo();
-    v_Constrinf->setCollisionHull(CollisionHull::BoxAABB); // Automatische generierung einer Box aus den Vertexpunkten
-    v_PlanePhys->setConstructionInfo(v_Constrinf);
-    v_PlanePhys->registerPhysicObject();
 
+
+    //Funktionen
+  /*  Koord.at(0) = {tx,ty,tz};
+    Koord.at(0).at(0);//X-Koordinate. Bei Eintrag 0, Y-Koordinate (bei 2.at) (1)
+    Koord.at(0).at(1);
+    do
+    {
+        Koord.emplace_back(tx,ty,tz);
+        e_Coral->translate(tx,ty,tz);
+        t_tx = tx;
+        t_tz = tz;
+
+        do
+        {
+            tx = rand () % 10 + 1;
+            tz = rand () % 10 + 1;
+        }
+        while(t_tx == tx || t_tz == tz);
+
+
+        status = true;
+    }
+    while(status != true);
+*/
+    //Translationen
+
+     Gen.SetzungTrafo_Plane();
+     Gen.SetzungTrafo_Mobs();
     //Baum
     root->addChild(transformationPlaneNode);
-    transformationPlaneNode->addChild(new Node(v_Plane));
-    root ->addChild(transformationFish);
+    transformationPlaneNode->addChild(new Node(Gen.v_Plane));
+    root->addChild(transformationEnvironment);
+    transformationEnvironment->addChild(new Node(model2));
+    transformationEnvironment->addChild(new Node(model3));
+    root->addChild(transformationFish);
     transformationFish->addChild(new Node(model1));
+
 
     return root;
 }

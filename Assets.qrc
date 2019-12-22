@@ -1,0 +1,17 @@
+<RCC>
+    <qresource prefix="/">
+        <file>objects/Dolphin_Projectile.obj</file>
+        <file>objects/Environment_Coral_1.obj</file>
+        <file>objects/Environment_Coral_2.obj</file>
+        <file>objects/Environment_Coral_3.obj</file>
+        <file>objects/Environment_Coral_4.obj</file>
+        <file>objects/Environment_Seaweed.obj</file>
+        <file>objects/Environment_Stone_1.obj</file>
+        <file>objects/Environment_Stone_2.obj</file>
+        <file>objects/Environment_Stone_3.obj</file>
+        <file>objects/Environment_Stone_4.obj</file>
+        <file>objects/Environment_Stone_5.obj</file>
+        <file>objects/Pufferfish_Mob.obj</file>
+        <file>objects/Pufferfish_Projectile.obj</file>
+    </qresource>
+</RCC>
