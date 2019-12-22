@@ -77,7 +77,6 @@ Node *initScene1()
     srand (time(NULL));
     QString path(SRCDIR);
     QString shaderPath(path+"/");
-    Texture *t;
     MapGen Gen;
     std::vector<std::vector<int>>Koord{3,std::vector<int>(20)};
 
@@ -90,44 +89,18 @@ Node *initScene1()
     const int ty = 0;
     bool status = false;
 */
-
-    //Transformationen
-
-
-    //Drawable
-
-    Geometry* e_Fish = new TriangleMesh(path + QString("/objects/Pufferfish_Mob.obj"));
-    Geometry* e_Coral = new TriangleMesh(path + QString("/objects/Environment_Coral_1.obj"));
-    Geometry* e_Seaw = new TriangleMesh(path + QString("/objects/Environment_Seaweed.obj"));
-
-
-    Drawable* model1 = new Drawable(e_Fish);
-    Drawable* model2 = new Drawable(e_Coral);
-    Drawable* model3 = new Drawable(e_Seaw);
-
-
-
-
     //Nodes
     Node* transformationFish = new Node(Gen.f_TPuffer);
     Node* transformationPlaneNode = new Node(Gen.v_TransformationPlane);
     Node* transformationEnvironment = new Node (Gen.e_TCoral);
     Node* root=new Node();
 
-    //Manager Sachen
-
-
-    //Texturen
-    t = Gen.v_Plane->getProperty<Texture>();
-    t->loadPicture(path + QString("/modelstextures/l.bmp"));
-    t = model1->getProperty<Texture>();
-    t->loadPicture(path + QString("/modelstextures/ogrehead_diffuse.png"));
-
-    //Physics
-
 
     //Funktionen
-  /*  Koord.at(0) = {tx,ty,tz};
+  /*
+   *  t = Gen.model1->getProperty<Texture>();
+    t->loadPicture(path + QString("/modelstextures/ogrehead_diffuse.png"));
+   * Koord.at(0) = {tx,ty,tz};
     Koord.at(0).at(0);//X-Koordinate. Bei Eintrag 0, Y-Koordinate (bei 2.at) (1)
     Koord.at(0).at(1);
     do
@@ -149,7 +122,7 @@ Node *initScene1()
     }
     while(status != true);
 */
-    //Translationen
+
 
      Gen.SetzungTrafo_Plane();
      Gen.SetzungTrafo_Mobs();
@@ -157,10 +130,10 @@ Node *initScene1()
     root->addChild(transformationPlaneNode);
     transformationPlaneNode->addChild(new Node(Gen.v_Plane));
     root->addChild(transformationEnvironment);
-    transformationEnvironment->addChild(new Node(model2));
-    transformationEnvironment->addChild(new Node(model3));
+    transformationEnvironment->addChild(new Node(Gen.model2));
+    transformationEnvironment->addChild(new Node(Gen.model3));
     root->addChild(transformationFish);
-    transformationFish->addChild(new Node(model1));
+    transformationFish->addChild(new Node(Gen.model1));
 
 
     return root;

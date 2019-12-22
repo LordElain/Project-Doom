@@ -15,6 +15,8 @@ void MapGen::SetzungTrafo_Plane()
     v_Constrinf->setCollisionHull(CollisionHull::BVHTriangleMesh); // Automatische generierung einer Box aus den Vertexpunkten
     v_PlanePhys->setConstructionInfo(v_Constrinf);
     v_PlanePhys->registerPhysicObject();
+    t = v_Plane->getProperty<Texture>();
+    t->loadPicture(":/modelstextures/kempten.bmp");
 
 
 
@@ -23,5 +25,4 @@ void MapGen::SetzungTrafo_Plane()
 void MapGen::SetzungTrafo_Mobs()
 {
     f_TPuffer->translate(0.f,10.f,0.f);
-
 }
