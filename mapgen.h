@@ -1,5 +1,10 @@
 #ifndef MAPGEN_H
 #define MAPGEN_H
+
+#include <QString>
+#include <time.h>
+
+#include "scenemanager.h"
 #include "screenrenderer.h"
 #include "simpleplane.h"
 #include "shader.h"
@@ -15,9 +20,8 @@
 #include "efx-presets.h"
 #include "vector"
 
-#include <QString>
 
-class MapGen
+class MapGen: QString
 {
 public:
     MapGen();
@@ -26,21 +30,30 @@ public:
     void SetzungTrafo_Mobs();
     void SetzungTrafo();
 
+    Texture *t;
 
-  //Var
-    int m_x;
-    int m_y;
-    Drawable* v_Plane = new Drawable(new SimplePlane(50.f));
 
-  //Physics
+
+    //Physics
     int v_Slot = PhysicEngineManager::createNewPhysicEngineSlot(PhysicEngineName::BulletPhysicsLibrary);
     PhysicEngine* v_PhysicEngine = PhysicEngineManager::getPhysicEngineBySlot(v_Slot);
 
-  //Drawable
 
-  //Transformationen
+    //Geometry
+    Geometry* e_Fish = new TriangleMesh(":/objects/Pufferfish_Mob.obj");
+    Geometry* e_Coral =new TriangleMesh(":/objects/Environment_Coral_1.obj");
+    Geometry* e_Seaw = new TriangleMesh(":/objects/Environment_Seaweed.obj");
 
+    //Drawable
+    Drawable* v_Plane = new Drawable(new SimplePlane(50.f));
+    Drawable* model1 = new Drawable(e_Fish);
+    Drawable* model2 = new Drawable(e_Coral);
+    Drawable* model3 = new Drawable(e_Seaw);
+
+
+    //Transformationen
     Transformation* v_TransformationPlane = new Transformation();
+
     Transformation* f_TPuffer = new Transformation();
     Transformation* f_TPuffer2 = new Transformation();
     Transformation* f_TPuffer3 = new Transformation();
