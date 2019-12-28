@@ -21,7 +21,9 @@
 #include "vector"
 
 
-class MapGen: QString
+
+
+class MapGen: public QString
 {
 public:
     MapGen();
@@ -29,15 +31,9 @@ public:
     void SetzungTrafo_Envi();
     void SetzungTrafo_Mobs();
     void SetzungTrafo();
+    void SetzungTrafo_Player();
 
     Texture *t;
-
-
-
-    //Physics
-    int v_Slot = PhysicEngineManager::createNewPhysicEngineSlot(PhysicEngineName::BulletPhysicsLibrary);
-    PhysicEngine* v_PhysicEngine = PhysicEngineManager::getPhysicEngineBySlot(v_Slot);
-
 
     //Geometry
     Geometry* e_Fish = new TriangleMesh(":/objects/Pufferfish_Mob.obj");
