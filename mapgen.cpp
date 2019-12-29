@@ -18,7 +18,8 @@ void MapGen::SetzungTrafo_Plane()
 
 void MapGen::SetzungTrafo_Mobs()
 {
-    f_TPuffer->translate(0.f,10.f,0.f);
+
+    f_TPuffer->translate(5.f,10.f,0.f);
 }
 
 void MapGen::SetzungTrafo_Player()

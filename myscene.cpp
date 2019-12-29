@@ -85,13 +85,10 @@ Node *initScene1()
     QString path(SRCDIR);
     QString shaderPath(path+"/");
     MapGen Gen;
+    Node* root=new Node();
 
-    Drawable* v_Ball;
-    ModelTransformation* v_Transformation;
+    PhysicObject* Mob;
 
-    v_Ball = new Drawable(new SimpleSphere(0.5f));
-    v_Transformation = v_Ball->getProperty<ModelTransformation>();
-    v_Transformation->translate(0.f, 10.f, 0.f);
     int v_Slot = PhysicEngineManager::createNewPhysicEngineSlot(PhysicEngineName::BulletPhysicsLibrary);
     PhysicEngine* v_PhysicEngine = PhysicEngineManager::getPhysicEngineBySlot(v_Slot);
 
@@ -103,27 +100,53 @@ Node *initScene1()
     v_PlanePhys->setConstructionInfo(v_Constrinf);
     v_PlanePhys->registerPhysicObject();
 
+    //Mobs
+    Mob = v_PhysicEngine->createNewPhysicObject(Gen.model1);
+    PhysicObjectConstructionInfo* v_Constrinf_Mob = new PhysicObjectConstructionInfo();
+    v_Constrinf_Mob->setCcdActivation(true);
+    v_Constrinf_Mob->setCollisionHull(CollisionHull::BVHTriangleMesh);
+    v_Constrinf_Mob->setMass(2.f);
+    v_Constrinf_Mob->setRollingFriction(0.1f);
+    v_Constrinf_Mob->setMidpointTransformation(QMatrix4x4(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1));
+    Mob->setConstructionInfo(v_Constrinf_Mob);
+    Gen.model1->getPhysicObject()->registerPhysicObject();
+    Gen.model1->setStaticGeometry(true);
 
-    //Kamera
+    //Envi
+   /* Gen.model2->getPhysicObject()->registerPhysicObject();
+    Gen.model2->setStaticGeometry(true);
+    Gen.model3->getPhysicObject()->registerPhysicObject();
+    Gen.model3->setStaticGeometry(true);
+*/
+
+    //Player
+    Drawable* v_Ball;
+    ModelTransformation* v_Transformation;
+    v_Ball = new Drawable(new SimpleSphere(0.5f));
+    v_Transformation = v_Ball->getProperty<ModelTransformation>();
+    v_Transformation->translate(0.f, 1.f, 0.f);
+    root->addChild(new Node(v_Ball));
+    Mob = v_PhysicEngine->createNewPhysicObject(v_Ball);
     DynamicCharacterWithCam* v_CharacterWithCam = v_PhysicEngine->createNewDynamicCharacterWithCam(v_Ball);
     v_CharacterWithCam->setCam(dynamic_cast<PhysicAccessableCamera*>(SceneManager::instance()->getActiveContext()->getCamera()));
     // Relative Kameraposition zum Drawable setzen
     v_CharacterWithCam->setRelativeCamPosition(0.f, 4.f, 6.f);
-    v_CharacterWithCam->setUpDownView(-30.0F);
-    v_Ball->setStaticGeometry(true);
-    v_Ball->getPhysicObject()->registerPhysicObject();
+    v_CharacterWithCam->setUpDownView(-35.0F);
     new Spieler (v_CharacterWithCam);
+
+    v_Ball->getPhysicObject()->registerPhysicObject();
+
 
 
     //Nodes
     Node* transformationFish = new Node(Gen.f_TPuffer);
     Node* transformationPlaneNode = new Node(Gen.v_TransformationPlane);
     Node* transformationEnvironment = new Node (Gen.e_TCoral);
-    Node* root=new Node();
 
 
-    //Gen.SetzungTrafo_Plane();
-    //Gen.SetzungTrafo_Mobs();
+    //Funktionen
+    Gen.SetzungTrafo_Plane();
+    Gen.SetzungTrafo_Mobs();
 
     //Baum
     root->addChild(transformationPlaneNode);
@@ -133,7 +156,7 @@ Node *initScene1()
     transformationEnvironment->addChild(new Node(Gen.model3));
     root->addChild(transformationFish);
     transformationFish->addChild(new Node(Gen.model1));
-    root->addChild(new Node(v_Ball));
+
 
 
     return root;
