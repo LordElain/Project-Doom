@@ -17,7 +17,6 @@
 #include "shadermanager.h"
 #include "efx-presets.h"
 #include "spieler.h"
-#include "mapgen.h"
 #include "vector"
 #include "physicaccessablecamera.h"
 #include "opengl.h"
@@ -26,8 +25,9 @@
 #include "simplecube.h"
 #include "simplesphere.h"
 #include "mainwindow.h"
-
-
+#include "listener.h"
+#include "audioengine.h"
+#include "soundsource.h"
 
 
 
@@ -82,80 +82,142 @@ void SceneManager::initScenes()
 Node *initScene1()
 {
     //Deklaration
-    QString path(SRCDIR);
-    QString shaderPath(path+"/");
-    MapGen Gen;
-    Node* root=new Node();
+        QString path(SRCDIR);
+        QString shaderPath(path+"/");
+        Node* root=new Node();
+       // Texture *t;
+        PhysicObject* Mob;
 
-    PhysicObject* Mob;
+        PhysicObject* Player;
 
+
+
+    //Geometry
+        Geometry* e_Fish = new TriangleMesh(":/objects/Pufferfish_Mob.obj");
+        Geometry* e_Coral =new TriangleMesh(":/objects/Environment_Coral_1.obj");
+        Geometry* e_Seaw = new TriangleMesh(":/objects/Environment_Seaweed.obj");
+        Geometry* b_Small = new TriangleMesh(":/objects/Buildings_Small_1.obj");
+        Geometry* b_Medium = new TriangleMesh(":/objects/Buildings_Medium_1.obj");
+        Geometry* b_Tall = new TriangleMesh(":/objects/Buildings_Tall_1.obj");
+        Geometry* b_Spawn = new TriangleMesh(":/objects/Buildings_Spawn_1.obj");
+        Geometry* b_Door = new TriangleMesh(":/objects/Buildings_Spawn_Door_1.obj");
+
+    //Drawable
+        Drawable* model1_Fish = new Drawable(e_Fish);
+        Drawable* model2 = new Drawable(e_Coral);
+        Drawable* model3 = new Drawable(e_Seaw);
+        Drawable* model4_Spawn = new Drawable(b_Spawn);
+
+    //Transformation
+        Transformation* f_TPuffer = new Transformation();
+
+        Transformation* e_TCoral = new Transformation();
+        Transformation* e_TSeaw = new Transformation();
+
+
+        Transformation* b_TSpawn1 = new Transformation();
+
+    //Nodes
+        Node* transformationFish = new Node(f_TPuffer);
+        Node* transformationEnvironment = new Node (e_TCoral);
+        Node* transformationBuilding = new Node (b_TSpawn1);
+
+
+    //Physiks
     int v_Slot = PhysicEngineManager::createNewPhysicEngineSlot(PhysicEngineName::BulletPhysicsLibrary);
     PhysicEngine* v_PhysicEngine = PhysicEngineManager::getPhysicEngineBySlot(v_Slot);
 
-    //Physiks
-    PhysicObject* v_PlanePhys = v_PhysicEngine->createNewPhysicObject(Gen.v_Plane);
-    PhysicObjectConstructionInfo* v_Constrinf = new PhysicObjectConstructionInfo();
-    Gen.v_Plane->setStaticGeometry(true);
-    v_Constrinf->setCollisionHull(CollisionHull::BoxAABB); // Automatische generierung einer Box aus den Vertexpunkten
-    v_PlanePhys->setConstructionInfo(v_Constrinf);
-    v_PlanePhys->registerPhysicObject();
-
     //Mobs
-    Mob = v_PhysicEngine->createNewPhysicObject(Gen.model1);
-    PhysicObjectConstructionInfo* v_Constrinf_Mob = new PhysicObjectConstructionInfo();
-    v_Constrinf_Mob->setCcdActivation(true);
-    v_Constrinf_Mob->setCollisionHull(CollisionHull::BVHTriangleMesh);
-    v_Constrinf_Mob->setMass(2.f);
-    v_Constrinf_Mob->setRollingFriction(0.1f);
-    v_Constrinf_Mob->setMidpointTransformation(QMatrix4x4(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1));
-    Mob->setConstructionInfo(v_Constrinf_Mob);
-    Gen.model1->getPhysicObject()->registerPhysicObject();
-    Gen.model1->setStaticGeometry(true);
+        Mob = v_PhysicEngine->createNewPhysicObject(model1_Fish);
+        PhysicObjectConstructionInfo* v_Constrinf_Mob = new PhysicObjectConstructionInfo();
+        v_Constrinf_Mob->setCollisionHull(CollisionHull::BVHTriangleMesh);
+        v_Constrinf_Mob->setMidpointTransformation(QMatrix4x4(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1));
+        v_Constrinf_Mob->setMass(3.f);
+        Mob->setConstructionInfo(v_Constrinf_Mob);
+        model1_Fish->getPhysicObject()->registerPhysicObject();
+        f_TPuffer->translate(-5.f,0.f,0.f);
+
 
     //Envi
-   /* Gen.model2->getPhysicObject()->registerPhysicObject();
-    Gen.model2->setStaticGeometry(true);
-    Gen.model3->getPhysicObject()->registerPhysicObject();
-    Gen.model3->setStaticGeometry(true);
-*/
+        Mob = v_PhysicEngine->createNewPhysicObject(model2);
+        Mob = v_PhysicEngine->createNewPhysicObject(model3);
+        model2->getPhysicObject()->registerPhysicObject();
+        e_TCoral->translate(5.f,0.f,0.f);
+        e_TSeaw->translate(5.0f,0.f,2.0f);
+
+
+
+    //Buildings
+        PhysicObject* Build = v_PhysicEngine->createNewPhysicObject(model4_Spawn);
+        PhysicObjectConstructionInfo* v_Constrinf_Build = new PhysicObjectConstructionInfo();
+        v_Constrinf_Build->setMass(10.f);
+        v_Constrinf_Build->setLocalInertiaPoint(QVector3D(0.f, 0.f, 0.f));
+        v_Constrinf_Build->setCollisionHull(CollisionHull::BVHTriangleMesh);
+        v_Constrinf_Build->setBoxHalfExtends(QVector3D(0.5f, 0.5f, 0.5f));
+        Build->setConstructionInfo(v_Constrinf_Build);
+        model4_Spawn->getPhysicObject()->registerPhysicObject();
+        model4_Spawn->setStaticGeometry(true);
+        b_TSpawn1->translate(0.f,1.f,0.f);
 
     //Player
-    Drawable* v_Ball;
-    ModelTransformation* v_Transformation;
-    v_Ball = new Drawable(new SimpleSphere(0.5f));
-    v_Transformation = v_Ball->getProperty<ModelTransformation>();
-    v_Transformation->translate(0.f, 1.f, 0.f);
-    root->addChild(new Node(v_Ball));
-    Mob = v_PhysicEngine->createNewPhysicObject(v_Ball);
-    DynamicCharacterWithCam* v_CharacterWithCam = v_PhysicEngine->createNewDynamicCharacterWithCam(v_Ball);
-    v_CharacterWithCam->setCam(dynamic_cast<PhysicAccessableCamera*>(SceneManager::instance()->getActiveContext()->getCamera()));
-    // Relative Kameraposition zum Drawable setzen
-    v_CharacterWithCam->setRelativeCamPosition(0.f, 4.f, 6.f);
-    v_CharacterWithCam->setUpDownView(-35.0F);
-    new Spieler (v_CharacterWithCam);
+        Drawable* v_Ball;
+        ModelTransformation* v_Transformation;
 
-    v_Ball->getPhysicObject()->registerPhysicObject();
+        // Zweiter Ball der gesteuert werden kann und den eine Kamera verfolgt
+        v_Ball = new Drawable(new SimpleSphere(0.3f));
+        v_Transformation = v_Ball->getProperty<ModelTransformation>();
+        v_Transformation->translate(0.f, 1.f, 2.f);
+        root->addChild(new Node(v_Ball));
 
-
-
-    //Nodes
-    Node* transformationFish = new Node(Gen.f_TPuffer);
-    Node* transformationPlaneNode = new Node(Gen.v_TransformationPlane);
-    Node* transformationEnvironment = new Node (Gen.e_TCoral);
+        // Character Objekt erzeugen mit einer Verfolgerkamera
+        DynamicCharacterWithCam* v_CharacterWithCam = v_PhysicEngine->createNewDynamicCharacterWithCam(v_Ball);
+        // Kamera anhängen, die bestimmung der kameraposition wird nun komplett von dem character übernommen,  allein
+        // die x achsendrehung kann noch beeinflusst werden
+        v_CharacterWithCam->setCam(dynamic_cast<PhysicAccessableCamera*>(SceneManager::instance()->getActiveContext()->getCamera()));
+        // Relative Kameraposition zum Drawable setzen
+        v_CharacterWithCam->setRelativeCamPosition(0.f, 4.0f, 6.0f);
+        v_CharacterWithCam->setUpDownView(-30.0F);
+        // Physic Object registrieren
 
 
-    //Funktionen
-    Gen.SetzungTrafo_Plane();
-    Gen.SetzungTrafo_Mobs();
+        v_Ball->getPhysicObject()->registerPhysicObject();
+
+        new Spieler (v_CharacterWithCam);
+
+
+    //Boden
+        Drawable* v_Plane = new Drawable(new SimplePlane(20.f));
+        v_Plane->getProperty<ModelTransformation>()->rotate(90, 1.f, 0.f, 0.f);
+        v_Plane->setStaticGeometry(true); // Der Oberfläche ein statisches verhalten zuweisen
+        PhysicObject* v_PlanePhys = v_PhysicEngine->createNewPhysicObject(v_Plane);
+        PhysicObjectConstructionInfo* v_Constrinf = new PhysicObjectConstructionInfo();
+        v_Constrinf->setCollisionHull(CollisionHull::BoxAABB); // Automatische generierung einer Box
+        v_PlanePhys->setConstructionInfo(v_Constrinf);
+        v_PlanePhys->registerPhysicObject();
+
+    //Audio
+        //AudioListener anlegen
+        AudioListener* lAudioListener= new AudioListener();
+        gAudioListenerNode = new Node(lAudioListener);
+        AudioEngine::instance().init(AudioEngineType::QtStereo);
+
+        //NatureAmbience ist Stereo und ändert daher als ambienter Sound seine "Position" nicht
+        gAmbientSoundSource = new SoundSource(new SoundFile(path+QString("/sound/RollerMobster.wav")));
+        gAmbientSoundSource->setLooping(true);
+        gAmbientSoundSource->play();
+
+
 
     //Baum
-    root->addChild(transformationPlaneNode);
-    transformationPlaneNode->addChild(new Node(Gen.v_Plane));
-    root->addChild(transformationEnvironment);
-    transformationEnvironment->addChild(new Node(Gen.model2));
-    transformationEnvironment->addChild(new Node(Gen.model3));
-    root->addChild(transformationFish);
-    transformationFish->addChild(new Node(Gen.model1));
+        root->addChild(gAudioListenerNode);
+        root->addChild(new Node(v_Plane));
+        root->addChild(transformationEnvironment);
+        transformationEnvironment->addChild(new Node(model2));
+        transformationEnvironment->addChild(new Node(model3));
+        root->addChild(transformationFish);
+        transformationFish->addChild(new Node(model1_Fish));
+        root->addChild(transformationBuilding);
+        transformationBuilding->addChild(new Node(model4_Spawn));
 
 
 
