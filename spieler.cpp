@@ -14,20 +14,6 @@ void Spieler::doIt()
     // Flags sammeln in welche richtungen der Character gehen soll
     unsigned long long v_MoveFlagsDynCh = 0;
     KeyboardInput* keyIn = InputRegistry::getInstance().getKeyboardInput();
-
-    // Bei i vorwärts, j links und l rechts
-    if (keyIn->isKeyPressed('i'))
-    {
-        v_MoveFlagsDynCh |= MovementFlag::Forward;
-    }
-    if (keyIn->isKeyPressed('j'))
-    {
-        v_MoveFlagsDynCh |= MovementFlag::TurnLeft;
-    }
-    if (keyIn->isKeyPressed('l'))
-    {
-        v_MoveFlagsDynCh |= MovementFlag::TurnRight;
-    }
     // character in die entsprechende richtung bewegen
    // m_DynamicCharacter->moveCharacter(time, v_MoveFlagsDynCh);
 

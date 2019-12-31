@@ -13,5 +13,14 @@
         <file>objects/Environment_Stone_5.obj</file>
         <file>objects/Pufferfish_Mob.obj</file>
         <file>objects/Pufferfish_Projectile.obj</file>
+        <file>objects/Buildings_Medium_1.obj</file>
+        <file>objects/Buildings_Small_1.obj</file>
+        <file>objects/Buildings_Spawn_1.obj</file>
+        <file>objects/Buildings_Tall_1.obj</file>
+        <file>objects/Buildings_Spawn_Door_1.obj</file>
+        <file>modelstextures/Coral_001_basecolor.jpg</file>
+        <file>modelstextures/kempten.bmp</file>
+        <file>modelstextures/l.bmp</file>
+        <file>modelstextures/ogrehead_diffuse.png</file>
     </qresource>
 </RCC>
