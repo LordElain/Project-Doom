@@ -13,5 +13,41 @@
         <file>objects/Environment_Stone_5.obj</file>
         <file>objects/Pufferfish_Mob.obj</file>
         <file>objects/Pufferfish_Projectile.obj</file>
+        <file>objects/Buildings_Medium_1.obj</file>
+        <file>objects/Buildings_Small_1.obj</file>
+        <file>objects/Buildings_Spawn_1.obj</file>
+        <file>objects/Buildings_Tall_1.obj</file>
+        <file>objects/Buildings_Spawn_Door_1.obj</file>
+        <file>modelstextures/Coral_001_basecolor.jpg</file>
+        <file>modelstextures/kempten.bmp</file>
+        <file>modelstextures/l.bmp</file>
+        <file>modelstextures/ogrehead_diffuse.png</file>
+        <file>objects/Buildings_Medium_1.mtl</file>
+        <file>objects/Buildings_Small_1.mtl</file>
+        <file>objects/Buildings_Spawn_1.mtl</file>
+        <file>objects/Buildings_Spawn_Door_1.mtl</file>
+        <file>objects/Buildings_Spawn_links.mtl</file>
+        <file>objects/Buildings_Spawn_oben.mtl</file>
+        <file>objects/Buildings_Spawn_rechts.mtl</file>
+        <file>objects/Buildings_Spawn_unten.mtl</file>
+        <file>objects/Buildings_Tall_1.mtl</file>
+        <file>objects/Dolphin_Projectile.mtl</file>
+        <file>objects/Environment_Coral_1.mtl</file>
+        <file>objects/Environment_Coral_2.mtl</file>
+        <file>objects/Environment_Coral_3.mtl</file>
+        <file>objects/Environment_Coral_4.mtl</file>
+        <file>objects/Environment_Seaweed.mtl</file>
+        <file>objects/Environment_Stone_1.mtl</file>
+        <file>objects/Environment_Stone_2.mtl</file>
+        <file>objects/Environment_Stone_3.mtl</file>
+        <file>objects/Environment_Stone_4.mtl</file>
+        <file>objects/Environment_Stone_5.mtl</file>
+        <file>objects/Placeholder.txt</file>
+        <file>objects/Pufferfish_Mob.mtl</file>
+        <file>objects/Pufferfish_Projectile.mtl</file>
+        <file>objects/Buildings_Spawn_links.obj</file>
+        <file>objects/Buildings_Spawn_oben.obj</file>
+        <file>objects/Buildings_Spawn_rechts.obj</file>
+        <file>objects/Buildings_Spawn_unten.obj</file>
     </qresource>
 </RCC>

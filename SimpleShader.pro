@@ -2,15 +2,15 @@ include(../../../Common.pri)
 
 TARGET = SimpleShader
 SOURCES += \
-    mapgen.cpp \
     myscene.cpp \
     spieler.cpp
 
 RESOURCES += \
     Assets.qrc \
-    MyShaders.qrc
+    MyShaders.qrc \
+    Sound.qrc
 
 HEADERS += \
-    mapgen.h \
     spieler.h
 
+CONFIG += resources_big
