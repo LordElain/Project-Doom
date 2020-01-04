@@ -49,5 +49,10 @@
         <file>objects/Buildings_Spawn_oben.obj</file>
         <file>objects/Buildings_Spawn_rechts.obj</file>
         <file>objects/Buildings_Spawn_unten.obj</file>
+        <file>modelstextures/Boden.jpg</file>
+        <file>modelstextures/Gruen.jpg</file>
+        <file>modelstextures/Seaweed_dark_green_hammerite.png</file>
+        <file>modelstextures/Stein.jpg</file>
+        <file>modelstextures/Wand.jpg</file>
     </qresource>
 </RCC>

@@ -1,9 +1,15 @@
-in vec3 Color;
-out vec4 fragColor;
+uniform float hasTexture=0.0f;
+uniform sampler2D textureMap;
 
-uniform float Time;
+in vec2 texCoords;
+out vec4 fragColor;
 
 void main()
 {
-    fragColor = vec4(Color,1.0);
+    if(hasTexture > 0.5)
+    {
+        vec4 textureFrag = texture(textureMap, texCoords);
+        fragColor = vec4(textureFrag.rgb, textureFrag.a);
+    }
+//    fragColor = vec4(texCoords.x,texCoords.y,0.,1.);
 }
