@@ -71,9 +71,7 @@ Node *initScene1()
         Node* root=new Node();
         Texture *t;
         Shader* s = ShaderManager::getShader((":/shaders/Filter.vert"), (":/shaders/Filter.frag"));
-
-
-
+        Shader* s1 = ShaderManager::getShader((":/shaders/Movement.vert"), (":/shaders/Filter.frag"));
 
     //Geometry
         Geometry* e_Fish = new TriangleMesh(":/objects/Pufferfish_Mob.obj");
@@ -158,7 +156,9 @@ Node *initScene1()
         Mob->setConstructionInfo(v_Constrinf_Mob);
         model1_Fish->getPhysicObject()->registerPhysicObject();
 
-        f_TPuffer->translate(-5.f,0.f,0.f);
+        model1_Fish->setShader(s1);
+        f_TPuffer->translate(10.f,0.1f,0.f);
+
 
 
     //Envi
@@ -225,9 +225,10 @@ Node *initScene1()
         ModelTransformation* v_Transformation;
 
         // Zweiter Ball der gesteuert werden kann und den eine Kamera verfolgt
-        v_Ball = new Drawable(new SimpleSphere(0.1f));
+        v_Ball = new Drawable(new SimpleSphere(0.3f));
         v_Transformation = v_Ball->getProperty<ModelTransformation>();
         v_Transformation->translate(0.f, 0.5f, 0.f);
+        v_Transformation->rotate(180,0.f,1.f,0.f);
         root->addChild(new Node(v_Ball));
 
         // Character Objekt erzeugen mit einer Verfolgerkamera
@@ -236,8 +237,8 @@ Node *initScene1()
         // die x achsendrehung kann noch beeinflusst werden
         v_CharacterWithCam->setCam(dynamic_cast<PhysicAccessableCamera*>(SceneManager::instance()->getActiveContext()->getCamera()));
         // Relative Kameraposition zum Drawable setzen
-        v_CharacterWithCam->setRelativeCamPosition(0.f, 4.0f, 6.0f);
-        v_CharacterWithCam->setUpDownView(-30.0F);
+     //   v_CharacterWithCam->setRelativeCamPosition(0.f, 4.0f, 6.0f);
+        v_CharacterWithCam->setUpDownView(15.0F);
         v_Ball->getPhysicObject()->registerPhysicObject();
 
         new Spieler (v_CharacterWithCam);
@@ -297,7 +298,7 @@ Node *initScene1()
         transformationBuildingSpawn4->addChild(new Node(model10_Spawn4));
         transformationBuildingSpawn3->addChild(transformationBuildingSpawn5);
         transformationBuildingSpawn5->addChild(new Node(model11_SDoor));
-        transformationBuildingSpawn5->addChild(new Node(gSoundSource1));
+       // transformationBuildingSpawn5->addChild(new Node(gSoundSource1));
 
 
 

@@ -3,5 +3,6 @@
         <file>shaders/common.vert.inc</file>
         <file>shaders/Filter.frag</file>
         <file>shaders/Filter.vert</file>
+        <file>shaders/Movement.vert</file>
     </qresource>
 </RCC>
