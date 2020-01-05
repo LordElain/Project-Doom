@@ -53,7 +53,7 @@ void SceneManager::initScenes()
     unsigned int myContextNr = SceneManager::instance()->addContext(myContext);
     unsigned int myScene = SceneManager::instance()->addScene(initScene1());
     ScreenRenderer* myRenderer = new ScreenRenderer(myContextNr, myScene);
-    Q_UNUSED(myRenderer);
+    Q_UNUSED(myRenderer)
     myScene = SceneManager::instance()->addScene(initScene1());
 
     //Vorsicht: Die Szene muss initialisiert sein, bevor das Fenster verändert wird (Fullscreen)
@@ -259,7 +259,7 @@ Node *initScene1()
         AudioListener* lAudioListener= new AudioListener();
         gAudioListenerNode = new Node(lAudioListener);
         AudioEngine::instance().init(AudioEngineType::OpenAL3D);
-        Node *lSource1Node = new Node(gSoundSource1);
+        //Node *lSource1Node = new Node(gSoundSource1);
 
         //NatureAmbience ist Stereo und ändert daher als ambienter Sound seine "Position" nicht
         gSoundSource1 = new SoundSource(new SoundFile(path+QString("/sound/RollerMobster_edit.wav")));
