@@ -54,5 +54,10 @@
         <file>modelstextures/Seaweed_dark_green_hammerite.png</file>
         <file>modelstextures/Stein.jpg</file>
         <file>modelstextures/Wand.jpg</file>
+        <file>modelstextures/Boden_re.jpg</file>
+        <file>modelstextures/Metall.jpg</file>
+        <file>modelstextures/Metall_2.jpeg</file>
+        <file>modelstextures/Pufferfish_1.jpg</file>
+        <file>modelstextures/Pufferfish_2.jpg</file>
     </qresource>
 </RCC>
