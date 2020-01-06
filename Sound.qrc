@@ -1,5 +1,5 @@
 <RCC>
     <qresource prefix="/">
-        <file>sound/RollerMobster.wav</file>
+        <file>sound/RollerMobster_edit.wav</file>
     </qresource>
 </RCC>

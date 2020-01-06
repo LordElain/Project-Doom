@@ -42,23 +42,7 @@ Node* gAudioListenerNode;
 
 class SceneSwitcher: public Listener
 {
-    void keyboard(int key, int modifier)
-    {
-        if (key == '1')
-        {
-            sortedRenderer->setScene(myScene);
-            gSoundSource1->play();
-        }
-        else if(key =='2')
-        {
-            sortedRenderer->setScene(myScene2);
-            gSoundSource2->play();
-        }
-        else if (key == 'l' || key == 'L')
-        {
-            gSoundSource3->play();
-        }
-    }
+
 };
 
 void SceneManager::initScenes()
@@ -69,7 +53,7 @@ void SceneManager::initScenes()
     unsigned int myContextNr = SceneManager::instance()->addContext(myContext);
     unsigned int myScene = SceneManager::instance()->addScene(initScene1());
     ScreenRenderer* myRenderer = new ScreenRenderer(myContextNr, myScene);
-    Q_UNUSED(myRenderer);
+    Q_UNUSED(myRenderer)
     myScene = SceneManager::instance()->addScene(initScene1());
 
     //Vorsicht: Die Szene muss initialisiert sein, bevor das Fenster verändert wird (Fullscreen)
@@ -85,10 +69,9 @@ Node *initScene1()
         QString path(SRCDIR);
         QString shaderPath(path+"/");
         Node* root=new Node();
-       // Texture *t;
-
-
-
+        Texture *t;
+        Shader* s = ShaderManager::getShader((":/shaders/Filter.vert"), (":/shaders/Filter.frag"));
+        Shader* s1 = ShaderManager::getShader((":/shaders/Movement.vert"), (":/shaders/Filter.frag"));
 
     //Geometry
         Geometry* e_Fish = new TriangleMesh(":/objects/Pufferfish_Mob.obj");
@@ -114,6 +97,7 @@ Node *initScene1()
         Drawable* model8_Spawn2 = new Drawable(b_Spawn_links);
         Drawable* model9_Spawn3 = new Drawable(b_Spawn_rechts);
         Drawable* model10_Spawn4 = new Drawable(b_Spawn_unten);
+        Drawable* model11_SDoor = new Drawable(b_Door);
 
     //Transformation
         //Mobs
@@ -135,13 +119,14 @@ Node *initScene1()
         Transformation* b_TSpawn2 = new Transformation();
         Node* transformationBuildingSpawn2 = new Node (b_TSpawn2);
 
-
         Transformation* b_TSpawn3 = new Transformation();
         Node* transformationBuildingSpawn3 = new Node (b_TSpawn3);
 
-
         Transformation* b_TSpawn4 = new Transformation();
         Node* transformationBuildingSpawn4 = new Node (b_TSpawn4);
+
+        Transformation* b_TSpawn5 = new Transformation();
+        Node* transformationBuildingSpawn5 = new Node (b_TSpawn5);
 
         //Small
         Transformation* b_TSmall = new Transformation();
@@ -171,14 +156,13 @@ Node *initScene1()
         Mob->setConstructionInfo(v_Constrinf_Mob);
         model1_Fish->getPhysicObject()->registerPhysicObject();
 
-        f_TPuffer->translate(-5.f,0.f,0.f);
+        model1_Fish->setShader(s1);
+        f_TPuffer->translate(10.f,0.1f,0.f);
+
 
 
     //Envi
         PhysicObject* Envi;
-      //  model2->setStaticGeometry(true);
-      //  model3->setStaticGeometry(true);
-
         Envi = v_PhysicEngine->createNewPhysicObject(model2);
         Envi = v_PhysicEngine->createNewPhysicObject(model3);
 
@@ -188,23 +172,28 @@ Node *initScene1()
         e_TSeaw->translate(5.0f,0.f,2.0f);
 
     //Spawn
-       //model4_Spawn->setStaticGeometry(true);
+       model4_Spawn->setStaticGeometry(true);
        model8_Spawn2->setStaticGeometry(true);
        model9_Spawn3->setStaticGeometry(true);
        model10_Spawn4->setStaticGeometry(true);
+    //   model11_SDoor->setStaticGeometry(true);
        PhysicObject* Spawn = v_PhysicEngine->createNewPhysicObject(model4_Spawn);
        Spawn = v_PhysicEngine->createNewPhysicObject(model8_Spawn2);
        Spawn = v_PhysicEngine->createNewPhysicObject(model9_Spawn3);
        Spawn = v_PhysicEngine->createNewPhysicObject(model10_Spawn4);
+       Spawn = v_PhysicEngine->createNewPhysicObject(model11_SDoor);
        model4_Spawn->getPhysicObject()->registerPhysicObject();
        model8_Spawn2->getPhysicObject()->registerPhysicObject();
        model9_Spawn3->getPhysicObject()->registerPhysicObject();
        model10_Spawn4->getPhysicObject()->registerPhysicObject();
+       model11_SDoor->getPhysicObject()->registerPhysicObject();
 
-       b_TSpawn1->translate(0.f,0.2f,0.f);
+       b_TSpawn1->translate(0.f,0.05f,0.f);
        b_TSpawn2->translate(-0.1f,0.f,0.f);
        b_TSpawn3->translate(0.1f,0.f,0.f);
        b_TSpawn4->translate(0.f,0.f,-1.f);
+       b_TSpawn5->translate(0.f,0.f,4.f);
+      // b_TSpawn5->rotate(30,0.f,1.f,0.f);
 
 
     //Buildings
@@ -236,9 +225,10 @@ Node *initScene1()
         ModelTransformation* v_Transformation;
 
         // Zweiter Ball der gesteuert werden kann und den eine Kamera verfolgt
-        v_Ball = new Drawable(new SimpleSphere(0.1f));
+        v_Ball = new Drawable(new SimpleSphere(0.3f));
         v_Transformation = v_Ball->getProperty<ModelTransformation>();
         v_Transformation->translate(0.f, 0.5f, 0.f);
+        v_Transformation->rotate(180,0.f,1.f,0.f);
         root->addChild(new Node(v_Ball));
 
         // Character Objekt erzeugen mit einer Verfolgerkamera
@@ -247,8 +237,8 @@ Node *initScene1()
         // die x achsendrehung kann noch beeinflusst werden
         v_CharacterWithCam->setCam(dynamic_cast<PhysicAccessableCamera*>(SceneManager::instance()->getActiveContext()->getCamera()));
         // Relative Kameraposition zum Drawable setzen
-        v_CharacterWithCam->setRelativeCamPosition(0.f, 4.0f, 6.0f);
-        v_CharacterWithCam->setUpDownView(-30.0F);
+     //   v_CharacterWithCam->setRelativeCamPosition(0.f, 4.0f, 6.0f);
+        v_CharacterWithCam->setUpDownView(15.0F);
         v_Ball->getPhysicObject()->registerPhysicObject();
 
         new Spieler (v_CharacterWithCam);
@@ -268,12 +258,18 @@ Node *initScene1()
         //AudioListener anlegen
         AudioListener* lAudioListener= new AudioListener();
         gAudioListenerNode = new Node(lAudioListener);
-        AudioEngine::instance().init(AudioEngineType::QtStereo);
+        AudioEngine::instance().init(AudioEngineType::OpenAL3D);
+        //Node *lSource1Node = new Node(gSoundSource1);
 
         //NatureAmbience ist Stereo und ändert daher als ambienter Sound seine "Position" nicht
-        gAmbientSoundSource = new SoundSource(new SoundFile(path+QString("/sound/RollerMobster.wav")));
-        gAmbientSoundSource->setLooping(true);
-        gAmbientSoundSource->play();
+        gSoundSource1 = new SoundSource(new SoundFile(path+QString("/sound/RollerMobster_edit.wav")));
+      //  gAmbientSoundSource->setLooping(true);
+        gSoundSource1->play();
+
+    //Textur
+        t = v_Plane->getProperty<Texture>();
+        t->loadPicture(path + QString("/modelstextures/Boden_re.jpg"));
+        v_Plane->setShader(s);
 
 
 
@@ -300,6 +296,9 @@ Node *initScene1()
         transformationBuildingSpawn3->addChild(new Node(model9_Spawn3));
         root->addChild(transformationBuildingSpawn4);
         transformationBuildingSpawn4->addChild(new Node(model10_Spawn4));
+        transformationBuildingSpawn3->addChild(transformationBuildingSpawn5);
+        transformationBuildingSpawn5->addChild(new Node(model11_SDoor));
+       // transformationBuildingSpawn5->addChild(new Node(gSoundSource1));
 
 
 
