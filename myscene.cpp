@@ -344,7 +344,7 @@ Node *initScene1()
         //Node *lSource1Node = new Node(gSoundSource1);
 
         //NatureAmbience ist Stereo und ändert daher als ambienter Sound seine "Position" nicht
-        gSoundSource1 = new SoundSource(new SoundFile(path+QString("/sound/RollerMobster.wav")));
+        gSoundSource1 = new SoundSource(new SoundFile(path+QString("/sound/RollerMobster_edit.wav")));
       //  gAmbientSoundSource->setLooping(true);
         gSoundSource1->play();
 
