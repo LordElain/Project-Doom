@@ -108,6 +108,15 @@ Node *initScene1()
         Drawable* model19_Middle3 = new Drawable(b_Medium);
         Drawable* model20_Tall5 = new Drawable(b_Tall);
         Drawable* model21_Small5 = new Drawable(b_Small);
+        Drawable* model22_Tall5 = new Drawable(b_Tall);
+        Drawable* model23_Tall6 = new Drawable(b_Tall);
+        Drawable* model24_Tall7 = new Drawable(b_Tall);
+        Drawable* model25_Tall8 = new Drawable(b_Tall);
+        Drawable* model26_Tall9 = new Drawable(b_Tall);
+        Drawable* model27_Middle4 = new Drawable(b_Medium);
+        Drawable* model28_Middle5 = new Drawable(b_Medium);
+        Drawable* model29_Middle6 = new Drawable(b_Medium);
+        Drawable* model30_Middle7 = new Drawable(b_Medium);
 
     //Transformation
         //Mobs
@@ -165,6 +174,19 @@ Node *initScene1()
         Transformation* b_TMiddle3 = new Transformation();
         Node* transformationBuilding11 = new Node(b_TMiddle3);
 
+        Transformation* b_TMiddle4 = new Transformation();
+        Node* transformationBuilding19 = new Node (b_TMiddle4);
+
+        Transformation* b_TMiddle5 = new Transformation();
+        Node* transformationBuilding20 = new Node (b_TMiddle5);
+
+        Transformation* b_TMiddle6 = new Transformation();
+        Node* transformationBuilding21 = new Node (b_TMiddle6);
+
+        Transformation* b_TMiddle7 = new Transformation();
+        Node* transformationBuilding22 = new Node (b_TMiddle7);
+
+
         //Tall
         Transformation* b_TTall = new Transformation();
         Node* transformationBuilding3 = new Node (b_TTall);
@@ -180,6 +202,22 @@ Node *initScene1()
 
         Transformation* b_TTall5 = new Transformation();
         Node* transformationBuilding12 = new Node (b_TTall5);
+
+        Transformation* b_TTall6 = new Transformation();
+        Node* transformationBuilding14 = new Node (b_TTall6);
+
+        Transformation* b_TTall7 = new Transformation();
+        Node* transformationBuilding15 = new Node (b_TTall7);
+
+        Transformation* b_TTall8 = new Transformation();
+        Node* transformationBuilding16 = new Node (b_TTall8);
+
+        Transformation* b_TTall9 = new Transformation();
+        Node* transformationBuilding17 = new Node (b_TTall9);
+
+        Transformation* b_TTall10 = new Transformation();
+        Node* transformationBuilding18 = new Node (b_TTall10);
+
 
     //Physiks
     int v_Slot = PhysicEngineManager::createNewPhysicEngineSlot(PhysicEngineName::BulletPhysicsLibrary);
@@ -251,6 +289,15 @@ Node *initScene1()
         model19_Middle3->setStaticGeometry(true);
         model20_Tall5->setStaticGeometry(true);
         model21_Small5->setStaticGeometry(true);
+        model22_Tall5->setStaticGeometry(true);
+        model23_Tall6->setStaticGeometry(true);
+        model24_Tall7->setStaticGeometry(true);
+        model25_Tall8->setStaticGeometry(true);
+        model26_Tall9->setStaticGeometry(true);
+        model27_Middle4->setStaticGeometry(true);
+        model28_Middle5->setStaticGeometry(true);
+        model29_Middle6->setStaticGeometry(true);
+        model30_Middle7->setStaticGeometry(true);
         PhysicObject* Build = v_PhysicEngine->createNewPhysicObject(model5_Small);
         Build = v_PhysicEngine->createNewPhysicObject(model6_Middle);
         Build = v_PhysicEngine->createNewPhysicObject(model7_Tall);
@@ -264,6 +311,15 @@ Node *initScene1()
         Build = v_PhysicEngine->createNewPhysicObject(model19_Middle3);
         Build = v_PhysicEngine->createNewPhysicObject(model20_Tall5);
         Build = v_PhysicEngine->createNewPhysicObject(model21_Small5);
+        Build = v_PhysicEngine->createNewPhysicObject(model22_Tall5);
+        Build = v_PhysicEngine->createNewPhysicObject(model23_Tall6);
+        Build = v_PhysicEngine->createNewPhysicObject(model24_Tall7);
+        Build = v_PhysicEngine->createNewPhysicObject(model25_Tall8);
+        Build = v_PhysicEngine->createNewPhysicObject(model26_Tall9);
+        Build = v_PhysicEngine->createNewPhysicObject(model27_Middle4);
+        Build = v_PhysicEngine->createNewPhysicObject(model28_Middle5);
+        Build = v_PhysicEngine->createNewPhysicObject(model29_Middle6);
+        Build = v_PhysicEngine->createNewPhysicObject(model30_Middle7);
         PhysicObjectConstructionInfo* v_Constrinf_Build = new PhysicObjectConstructionInfo();
         v_Constrinf_Build->setMass(10.f);
         //v_Constrinf_Build->setLocalInertiaPoint(QVector3D(0.f, 0.f, 0.f));
@@ -283,7 +339,15 @@ Node *initScene1()
         model19_Middle3->getPhysicObject()->registerPhysicObject();
         model20_Tall5->getPhysicObject()->registerPhysicObject();
         model21_Small5->getPhysicObject()->registerPhysicObject();
-
+        model22_Tall5->getPhysicObject()->registerPhysicObject();
+        model23_Tall6->getPhysicObject()->registerPhysicObject();
+        model24_Tall7->getPhysicObject()->registerPhysicObject();
+        model25_Tall8->getPhysicObject()->registerPhysicObject();
+        model26_Tall9->getPhysicObject()->registerPhysicObject();
+        model27_Middle4->getPhysicObject()->registerPhysicObject();
+        model28_Middle5->getPhysicObject()->registerPhysicObject();
+        model29_Middle6->getPhysicObject()->registerPhysicObject();
+        model30_Middle7->getPhysicObject()->registerPhysicObject();
         b_TSmall->translate(-16.f,0.1f,8.f);
         b_TSmall->rotate(90.f,0.f,1.f,0.f);
         b_TMiddle->translate(-16.f,0.1f,16.f);
@@ -292,14 +356,22 @@ Node *initScene1()
         b_TSmall2->translate(-8.f,0.1f,0.f);
         b_TMiddle2->translate(5.f,0.1f,13.f);
         b_TTall2->translate(-8.f,0.1f,24.f);
-        b_TTall3->translate(0.f,0.1f,24.f);
-        b_TTall4->translate(8.f,0.1f,24.f);
+        b_TTall3->translate(0.f,0.1f,32.f);
+        b_TTall4->translate(16.f,0.1f,32.f);
         b_TSmall3->translate(16.f,0.1f,-8.f);
         b_TSmall4->translate(24.f,0.1f,0.f);
         b_TMiddle3->translate(24.f,0.1f,8.f);
         b_TTall5->translate(24.f,0.1f,16.f);
         b_TSmall5->translate(16.f,0.1f,24.f);
-
+        b_TTall6->translate(16.f,0.1f,40.f);
+        b_TTall7->translate(24.f,0.1f,40.f);
+        b_TTall8->translate(24.f,0.1f,48.f);
+        b_TTall9->translate(24.f,0.1f,56.f);
+        b_TTall10->translate(16.f,0.1f,64.f);
+        b_TMiddle4->translate(8.f,0.1f,64.f);
+        b_TMiddle5->translate(0.f,0.1f,56.f);
+        b_TMiddle6->translate(0.f,0.1f,48.f);
+        b_TMiddle7->translate(0.f,0.1f,40.f);
 
     //Player
         Drawable* v_Ball;
@@ -337,7 +409,7 @@ Node *initScene1()
         v_PlanePhys->registerPhysicObject();
 
     //Audio
-        //AudioListener anlegen
+     /*  //AudioListener anlegen
         AudioListener* lAudioListener= new AudioListener();
         gAudioListenerNode = new Node(lAudioListener);
         AudioEngine::instance().init(AudioEngineType::OpenAL3D);
@@ -346,7 +418,7 @@ Node *initScene1()
         //NatureAmbience ist Stereo und ändert daher als ambienter Sound seine "Position" nicht
         gSoundSource1 = new SoundSource(new SoundFile(path+QString("/sound/RollerMobster_edit.wav")));
       //  gAmbientSoundSource->setLooping(true);
-        gSoundSource1->play();
+        gSoundSource1->play(); */
 
     //Textur
         t = v_Plane->getProperty<Texture>();
@@ -372,7 +444,7 @@ Node *initScene1()
 
 
     //Baum
-        root->addChild(gAudioListenerNode);
+        //root->addChild(gAudioListenerNode);
         root->addChild(new Node(v_Plane));
         root->addChild(transformationEnvironment);
         transformationEnvironment->addChild(new Node(model2));
@@ -417,7 +489,24 @@ Node *initScene1()
         transformationBuilding12->addChild(new Node(model20_Tall5));
         root->addChild(transformationBuilding13);
         transformationBuilding13->addChild(new Node(model21_Small5));
-
+        root->addChild(transformationBuilding14);
+        transformationBuilding14->addChild(new Node(model22_Tall5));
+        root->addChild(transformationBuilding15);
+        transformationBuilding15->addChild(new Node(model23_Tall6));
+        root->addChild(transformationBuilding16);
+        transformationBuilding16->addChild(new Node (model24_Tall7));
+        root->addChild(transformationBuilding17);
+        transformationBuilding17->addChild(new Node (model25_Tall8));
+        root->addChild(transformationBuilding18);
+        transformationBuilding18->addChild(new Node(model26_Tall9));
+        root->addChild(transformationBuilding19);
+        transformationBuilding19->addChild(new Node(model27_Middle4));
+        root->addChild(transformationBuilding20);
+        transformationBuilding20->addChild(new Node(model28_Middle5));
+        root->addChild(transformationBuilding21);
+        transformationBuilding21->addChild(new Node(model29_Middle6));
+        root->addChild(transformationBuilding22);
+        transformationBuilding22->addChild(new Node(model30_Middle7));
 
 
     return root;
