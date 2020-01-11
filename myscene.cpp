@@ -532,6 +532,14 @@ Node *initScene1()
         t->loadPicture(path + QString("/modelstextures/Pufferfish_2.jpg"));
         model1_Fish->setShader(s);
 
+        t = model2->getProperty<Texture>();
+        t->loadPicture(path + QString("/modelstextures/Gruen.jpg"));
+        model2->setShader(s);
+
+        t = model3->getProperty<Texture>();
+        t->loadPicture(path + QString("/modelstextures/Seaweed_dark_green_hammerite.png"));
+        model3->setShader(s);
+
         t = model4_Spawn->getProperty<Texture>();
         t->loadPicture(path + QString("/modelstextures/image.jpg"));
         model4_Spawn->setShader(s);
@@ -543,6 +551,149 @@ Node *initScene1()
         t = model6_Middle->getProperty<Texture>();
         t->loadPicture(path + QString("/modelstextures/image.jpg"));
         model6_Middle->setShader(s);
+
+        t = model7_Tall->getProperty<Texture>();
+        t->loadPicture(path + QString("/modelstextures/image.jpg"));
+        model7_Tall->setShader(s);
+
+        t = model8_Spawn2->getProperty<Texture>();
+        t->loadPicture(path + QString("/modelstextures/image.jpg"));
+        model8_Spawn2->setShader(s);
+
+        t = model9_Spawn3->getProperty<Texture>();
+        t->loadPicture(path + QString("/modelstextures/image.jpg"));
+        model9_Spawn3->setShader(s);
+
+        t = model10_Spawn4->getProperty<Texture>();
+        t->loadPicture(path + QString("/modelstextures/image.jpg"));
+        model10_Spawn4->setShader(s);
+
+        t = model11_SDoor->getProperty<Texture>();
+        t->loadPicture(path + QString("/modelstextures/Metall.jpg"));
+        model11_SDoor->setShader(s);
+
+        t = model12_Small2->getProperty<Texture>();
+        t->loadPicture(path + QString("/modelstextures/image.jpg"));
+        model12_Small2->setShader(s);
+
+        t = model13_Middle2->getProperty<Texture>();
+        t->loadPicture(path + QString("/modelstextures/image.jpg"));
+        model13_Middle2->setShader(s);
+
+        t = model14_Tall2->getProperty<Texture>();
+        t->loadPicture(path + QString("/modelstextures/image.jpg"));
+        model14_Tall2->setShader(s);
+
+        t = model15_Tall3->getProperty<Texture>();
+        t->loadPicture(path + QString("/modelstextures/image.jpg"));
+        model15_Tall3->setShader(s);
+
+        t = model16_Tall4->getProperty<Texture>();
+        t->loadPicture(path + QString("/modelstextures/image.jpg"));
+        model16_Tall4->setShader(s);
+
+        t = model17_Small3->getProperty<Texture>();
+        t->loadPicture(path + QString("/modelstextures/image.jpg"));
+        model17_Small3->setShader(s);
+
+        t = model18_Small4->getProperty<Texture>();
+        t->loadPicture(path + QString("/modelstextures/image.jpg"));
+        model18_Small4->setShader(s);
+
+        t = model19_Middle3->getProperty<Texture>();
+        t->loadPicture(path + QString("/modelstextures/image.jpg"));
+        model19_Middle3->setShader(s);
+
+        t = model20_Tall5->getProperty<Texture>();
+        t->loadPicture(path + QString("/modelstextures/image.jpg"));
+        model20_Tall5->setShader(s);
+
+        t = model21_Small5->getProperty<Texture>();
+        t->loadPicture(path + QString("/modelstextures/image.jpg"));
+        model21_Small5->setShader(s);
+
+        t = model22_Tall5->getProperty<Texture>();
+        t->loadPicture(path + QString("/modelstextures/image.jpg"));
+        model22_Tall5->setShader(s);
+
+        t = model23_Tall6->getProperty<Texture>();
+        t->loadPicture(path + QString("/modelstextures/image.jpg"));
+        model23_Tall6->setShader(s);
+
+        t = model24_Tall7->getProperty<Texture>();
+        t->loadPicture(path + QString("/modelstextures/image.jpg"));
+        model24_Tall7->setShader(s);
+
+        t = model25_Tall8->getProperty<Texture>();
+        t->loadPicture(path + QString("/modelstextures/image.jpg"));
+        model25_Tall8->setShader(s);
+
+        t = model26_Tall9->getProperty<Texture>();
+        t->loadPicture(path + QString("/modelstextures/image.jpg"));
+        model26_Tall9->setShader(s);
+
+        t = model27_Middle4->getProperty<Texture>();
+        t->loadPicture(path + QString("/modelstextures/image.jpg"));
+        model27_Middle4->setShader(s);
+
+        t = model28_Middle5->getProperty<Texture>();
+        t->loadPicture(path + QString("/modelstextures/image.jpg"));
+        model28_Middle5->setShader(s);
+
+        t = model29_Middle6->getProperty<Texture>();
+        t->loadPicture(path + QString("/modelstextures/image.jpg"));
+        model29_Middle6->setShader(s);
+
+        t = model30_Middle7->getProperty<Texture>();
+        t->loadPicture(path + QString("/modelstextures/image.jpg"));
+        model30_Middle7->setShader(s);
+
+        t = model31_Coral2->getProperty<Texture>();
+        t->loadPicture(path + QString("/modelstextures/Gruen.jpg"));
+        model31_Coral2->setShader(s);
+
+        t = model32_Coral3->getProperty<Texture>();
+        t->loadPicture(path + QString("/modelstextures/Gruen.jpg"));
+        model32_Coral3->setShader(s);
+
+        t = model33_Stone->getProperty<Texture>();
+        t->loadPicture(path + QString("/modelstextures/Stein.jpg"));
+        model33_Stone->setShader(s);
+
+        t = model34_Stone2->getProperty<Texture>();
+        t->loadPicture(path + QString("/modelstextures/Stein.jpg"));
+        model34_Stone2->setShader(s);
+
+        t = model35_Stone3->getProperty<Texture>();
+        t->loadPicture(path + QString("/modelstextures/Stein.jpg"));
+        model35_Stone3->setShader(s);
+
+        t = model36_Stone4->getProperty<Texture>();
+        t->loadPicture(path + QString("/modelstextures/Stein.jpg"));
+        model36_Stone4->setShader(s);
+
+        t = model37_Seaw2->getProperty<Texture>();
+        t->loadPicture(path + QString("/modelstextures/Seaweed_dark_green_hammerite.png"));
+        model37_Seaw2->setShader(s);
+
+        t = model38_Stone5->getProperty<Texture>();
+        t->loadPicture(path + QString("/modelstextures/Stein.jpg"));
+        model38_Stone5->setShader(s);
+
+        t = model39_Fish2->getProperty<Texture>();
+        t->loadPicture(path + QString("/modelstextures/Pufferfish_2.jpg"));
+        model39_Fish2->setShader(s);
+
+        t = model40_Fish3->getProperty<Texture>();
+        t->loadPicture(path + QString("/modelstextures/Pufferfish_2.jpg"));
+        model40_Fish3->setShader(s);
+
+        t = model41_Fish4->getProperty<Texture>();
+        t->loadPicture(path + QString("/modelstextures/Pufferfish_2.jpg"));
+        model41_Fish4->setShader(s);
+
+
+
 
 
 
