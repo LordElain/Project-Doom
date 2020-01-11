@@ -76,6 +76,7 @@ Node *initScene1()
     //Geometry
         Geometry* e_Fish = new TriangleMesh(":/objects/Pufferfish_Mob.obj");
         Geometry* e_Coral =new TriangleMesh(":/objects/Environment_Coral_1.obj");
+        Geometry* e_Coral2 =new TriangleMesh(":/objects/Environment_Coral_2.obj");
         Geometry* e_Seaw = new TriangleMesh(":/objects/Environment_Seaweed.obj");
         Geometry* b_Small = new TriangleMesh(":/objects/Buildings_Small_1.obj");
         Geometry* b_Medium = new TriangleMesh(":/objects/Buildings_Medium_1.obj");
@@ -85,6 +86,12 @@ Node *initScene1()
         Geometry* b_Spawn_rechts = new TriangleMesh(":/objects/Buildings_Spawn_rechts.obj");
         Geometry* b_Spawn_oben = new TriangleMesh(":/objects/Buildings_Spawn_oben.obj");
         Geometry* b_Spawn_unten = new TriangleMesh(":/objects/Buildings_Spawn_unten.obj");
+        Geometry* e_Stone = new TriangleMesh(":/objects/Environment_Stone_1.obj");
+        Geometry* e_Stone2 = new TriangleMesh(":/objects/Environment_Stone_2.obj");
+        Geometry* e_Stone3 = new TriangleMesh(":/objects/Environment_Stone_3.obj");
+        Geometry* e_Stone4 = new TriangleMesh(":/objects/Environment_Stone_4.obj");
+        Geometry* e_Stone5 = new TriangleMesh(":/objects/Environment_Stone_5.obj");
+
 
     //Drawable
         Drawable* model1_Fish = new Drawable(e_Fish);
@@ -117,6 +124,14 @@ Node *initScene1()
         Drawable* model28_Middle5 = new Drawable(b_Medium);
         Drawable* model29_Middle6 = new Drawable(b_Medium);
         Drawable* model30_Middle7 = new Drawable(b_Medium);
+        Drawable* model31_Coral2 = new Drawable(e_Coral);
+        Drawable* model32_Coral3 = new Drawable(e_Coral2);
+        Drawable* model33_Stone = new Drawable(e_Stone);
+        Drawable* model34_Stone2 = new Drawable(e_Stone2);
+        Drawable* model35_Stone3 = new Drawable(e_Stone3);
+        Drawable* model36_Stone4 = new Drawable(e_Stone4);
+        Drawable* model37_Seaw2 = new Drawable(e_Seaw);
+        Drawable* model38_Stone5 = new Drawable(e_Stone5);
 
     //Transformation
         //Mobs
@@ -127,9 +142,40 @@ Node *initScene1()
         Transformation* e_TCoral = new Transformation();
         Node* transformationEnvironment = new Node (e_TCoral);
 
+        Transformation* e_TCoral2 = new Transformation();
+        Node* transformationEnvironment2 = new Node (e_TCoral2);
+
+        Transformation* e_TCoral3 = new Transformation();
+        Node* transformationEnvironment3 = new Node (e_TCoral3);
+
+        //Stone
+
+        Transformation* e_TStone = new Transformation();
+        Node* transformationEnvironment4 = new Node (e_TStone);
+
+        Transformation* e_TStone2 = new Transformation();
+        Node* transformationEnvironment5 = new Node (e_TStone2);
+
+
+        Transformation* e_TStone3 = new Transformation();
+        Node* transformationEnvironment6 = new Node (e_TStone3);
+
+        Transformation* e_TStone4 = new Transformation();
+        Node* transformationEnvironment7 = new Node (e_TStone4);
+
+
+        Transformation* e_TStone5 = new Transformation();
+        Node* transformationEnvironment9 = new Node (e_TStone5);
+
+
+
+
         //SeaWeed
         Transformation* e_TSeaw = new Transformation();
         Node* transformationEnvironment1 = new Node (e_TSeaw);
+
+        Transformation* e_TSeaw2 = new Transformation();
+        Node* transformationEnvironment8 = new Node (e_TSeaw2);
 
         //Spawn
         Transformation* b_TSpawn1 = new Transformation();
@@ -242,13 +288,46 @@ Node *initScene1()
 
     //Envi
         PhysicObject* Envi;
+        model33_Stone->setStaticGeometry(true);
+        model34_Stone2->setStaticGeometry(true);
+        model35_Stone3->setStaticGeometry(true);
+        model36_Stone4->setStaticGeometry(true);
+        model38_Stone5->setStaticGeometry(true);
+
         Envi = v_PhysicEngine->createNewPhysicObject(model2);
         Envi = v_PhysicEngine->createNewPhysicObject(model3);
+        Envi = v_PhysicEngine->createNewPhysicObject(model31_Coral2);
+        Envi = v_PhysicEngine->createNewPhysicObject(model32_Coral3);
+        Envi = v_PhysicEngine->createNewPhysicObject(model33_Stone);
+        Envi = v_PhysicEngine->createNewPhysicObject(model34_Stone2);
+        Envi = v_PhysicEngine->createNewPhysicObject(model35_Stone3);
+        Envi = v_PhysicEngine->createNewPhysicObject(model36_Stone4);
+        Envi = v_PhysicEngine->createNewPhysicObject(model37_Seaw2);
+        Envi = v_PhysicEngine->createNewPhysicObject(model38_Stone5);
 
         model2->getPhysicObject()->registerPhysicObject();
         model3->getPhysicObject()->registerPhysicObject();
+        model31_Coral2->getPhysicObject()->registerPhysicObject();
+        model32_Coral3->getPhysicObject()->registerPhysicObject();
+        model33_Stone->getPhysicObject()->registerPhysicObject();
+        model34_Stone2->getPhysicObject()->registerPhysicObject();
+        model35_Stone3->getPhysicObject()->registerPhysicObject();
+        model36_Stone4->getPhysicObject()->registerPhysicObject();
+        model37_Seaw2->getPhysicObject()->registerPhysicObject();
+        model38_Stone5->getPhysicObject()->registerPhysicObject();
+
+
         e_TCoral->translate(7.f,0.1f,0.f);
         e_TSeaw->translate(5.0f,0.f,2.0f);
+        e_TCoral2->translate(8.f,0.1f,60.f);
+        e_TCoral3->translate(8.f,0.1f,14.f);
+        e_TStone->translate(8.f,0.1f,20.f);
+        e_TStone2->translate(14.f,0.1f,18.f);
+        e_TStone3->translate(14.f,0.1f,58.f);
+        e_TStone4->translate(22.f,0.1f,32.f);
+        e_TSeaw2->translate(-5.f,0.1f,18.f);
+        e_TSeaw2->rotate(90,0.f,1.f,0.f);
+        e_TStone5->translate(0.f,0.1f,21.f);
 
     //Spawn
        model4_Spawn->setStaticGeometry(true);
@@ -507,7 +586,22 @@ Node *initScene1()
         transformationBuilding21->addChild(new Node(model29_Middle6));
         root->addChild(transformationBuilding22);
         transformationBuilding22->addChild(new Node(model30_Middle7));
-
+        root->addChild(transformationEnvironment2);
+        transformationEnvironment2->addChild(new Node(model31_Coral2));
+        root->addChild(transformationEnvironment3);
+        transformationEnvironment3->addChild(new Node(model32_Coral3));
+        root->addChild(transformationEnvironment4);
+        transformationEnvironment4->addChild(new Node(model33_Stone));
+        root->addChild(transformationEnvironment5);
+        transformationEnvironment5->addChild(new Node(model34_Stone2));
+        root->addChild(transformationEnvironment6);
+        transformationEnvironment6->addChild(new Node(model35_Stone3));
+        root->addChild(transformationEnvironment7);
+        transformationEnvironment7->addChild(new Node(model36_Stone4));
+        root->addChild(transformationEnvironment8);
+        transformationEnvironment8->addChild(new Node(model37_Seaw2));
+        root->addChild(transformationEnvironment9);
+        transformationEnvironment9->addChild(new Node(model38_Stone5));
 
     return root;
 }

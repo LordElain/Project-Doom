@@ -59,5 +59,8 @@
         <file>modelstextures/Metall_2.jpeg</file>
         <file>modelstextures/Pufferfish_1.jpg</file>
         <file>modelstextures/Pufferfish_2.jpg</file>
+        <file>modelstextures/image.jpg</file>
+        <file>modelstextures/Tür_Holz.jpg</file>
+        <file>modelstextures/Wand_org.jpg</file>
     </qresource>
 </RCC>
