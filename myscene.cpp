@@ -132,11 +132,23 @@ Node *initScene1()
         Drawable* model36_Stone4 = new Drawable(e_Stone4);
         Drawable* model37_Seaw2 = new Drawable(e_Seaw);
         Drawable* model38_Stone5 = new Drawable(e_Stone5);
+        Drawable* model39_Fish2 = new Drawable(e_Fish);
+        Drawable* model40_Fish3 = new Drawable(e_Fish);
+        Drawable* model41_Fish4 = new Drawable(e_Fish);
 
     //Transformation
         //Mobs
         Transformation* f_TPuffer = new Transformation();
         Node* transformationFish = new Node(f_TPuffer);
+
+        Transformation* f_TPuffer2 = new Transformation();
+        Node* transformationFish2 = new Node(f_TPuffer2);
+
+        Transformation* f_TPuffer3 = new Transformation();
+        Node* transformationFish3 = new Node(f_TPuffer3);
+
+        Transformation* f_TPuffer4 = new Transformation();
+        Node* transformationFish4 = new Node(f_TPuffer4);
 
         //Korallen
         Transformation* e_TCoral = new Transformation();
@@ -272,6 +284,9 @@ Node *initScene1()
     //Mobs
         PhysicObject* Mob;
         Mob = v_PhysicEngine->createNewPhysicObject(model1_Fish);
+        Mob = v_PhysicEngine->createNewPhysicObject(model39_Fish2);
+        Mob = v_PhysicEngine->createNewPhysicObject(model40_Fish3);
+        Mob = v_PhysicEngine->createNewPhysicObject(model41_Fish4);
         PhysicObjectConstructionInfo* v_Constrinf_Mob = new PhysicObjectConstructionInfo();
         v_Constrinf_Mob->setCollisionHull(CollisionHull::SphereAABB);
         v_Constrinf_Mob->setCcdActivation(true);
@@ -280,9 +295,18 @@ Node *initScene1()
 
         Mob->setConstructionInfo(v_Constrinf_Mob);
         model1_Fish->getPhysicObject()->registerPhysicObject();
+        model39_Fish2->getPhysicObject()->registerPhysicObject();
+        model40_Fish3->getPhysicObject()->registerPhysicObject();
+        model41_Fish4->getPhysicObject()->registerPhysicObject();
 
 
         f_TPuffer->translate(10.f,0.1f,0.f);
+        f_TPuffer2->translate(15.f,0.1f,53.f);
+        f_TPuffer2->rotate(-90,0.f,1.f,0.f);
+        f_TPuffer3->translate(15.f,0.1f,50.f);
+        f_TPuffer3->rotate(-90,0.f,0.1f,0.f);
+        f_TPuffer4->translate(15.f,0.1f,47.f);
+        f_TPuffer4->rotate(-90,0.f,1.f,0.f);
 
 
 
@@ -322,7 +346,7 @@ Node *initScene1()
         e_TCoral2->translate(8.f,0.1f,60.f);
         e_TCoral3->translate(8.f,0.1f,14.f);
         e_TStone->translate(8.f,0.1f,20.f);
-        e_TStone2->translate(14.f,0.1f,18.f);
+        e_TStone2->translate(10.f,0.1f,24.f);
         e_TStone3->translate(14.f,0.1f,58.f);
         e_TStone4->translate(22.f,0.1f,32.f);
         e_TSeaw2->translate(-5.f,0.1f,18.f);
@@ -602,6 +626,12 @@ Node *initScene1()
         transformationEnvironment8->addChild(new Node(model37_Seaw2));
         root->addChild(transformationEnvironment9);
         transformationEnvironment9->addChild(new Node(model38_Stone5));
+        root->addChild(transformationFish2);
+        transformationFish2->addChild(new Node(model39_Fish2));
+        root->addChild(transformationFish3);
+        transformationFish3->addChild(new Node(model40_Fish3));
+        root->addChild(transformationFish4);
+        transformationFish4->addChild(new Node(model41_Fish4));
 
     return root;
 }
